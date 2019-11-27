@@ -9,10 +9,40 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    var commands: [Command] = []
+    
+    let light = LightInRoom()
+    let music = MusicInRoom()
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        view.backgroundColor = .purple
+        
+        let lightOnCommand = LightOnCommand(light: light)
+        let musicOnCommand = MusicOnCommand(music: music)
+        
+        let lightOffCommand = LightOffCommand(light: light)
+        let musicOffCommand = MusicOffCommand(music: music)
+        
+        let musicChangeVolume = MusicChangeVolume(music: music, volume: 7)
+        
+        commands.append(lightOnCommand)
+        commands.append(musicOnCommand)
+        commands.append(musicChangeVolume)
+       
+        commands.append(musicOffCommand)
+        commands.append(musicOnCommand)
+        
+        commands.append(lightOffCommand)
+        
+        start()
+    }
+    
+    func start () {
+        commands.forEach { $0.execute() }
     }
 
 
